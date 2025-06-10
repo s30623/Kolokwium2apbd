@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
 using WebApplication2.DTOs;
 using WebApplication2.Exceptions;
+using WebApplication2.Models;
 
 namespace WebApplication2.Services;
 
@@ -55,17 +56,21 @@ public class DbService : IDbService
             {
                 throw new NotFoundException("Tor o podanzej nazwue nie isntieje");
             }
-
             foreach (ParticipationRequestDTO racer in addRacerRequestDTO.Participations)
             {
                 if (await _context.Racers.FirstOrDefaultAsync(r => r.RacerId == racer.RacerId) is null)
                 {
                     throw new NotFoundException($"Racer o id: {racer.RacerId} nie istnieje");
                 }
-                // _context.Racers.Add(racer);
+                 _context.RaceParticipations.Add(new RaceParticipation
+                 {
+                     RacerId = racer.RacerId,
+                     Position = racer.Position,
+                     FinishTimeInSeconds = racer.FinishTimeInSeconds,
+                 });
             }
-            
-
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
         }
         catch (Exception e)
         {
