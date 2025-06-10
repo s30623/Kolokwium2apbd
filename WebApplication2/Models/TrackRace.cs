@@ -16,6 +16,6 @@ public class TrackRace
     public int Laps { get; set; }
     public int? BestTimeInSeconds { get; set; }
     public Race Race { get; set; } = null!;
-    public RaceParticipation RaceParticipation { get; set; } = null!;
+    public List<RaceParticipation> RaceParticipation { get; set; } = null!;
     public Track Track { get; set; } = null!;
 }
