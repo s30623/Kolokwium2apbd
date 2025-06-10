@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication2.Exceptions;
 using WebApplication2.Services;
 
 namespace WebApplication2.Controllers;
@@ -14,16 +15,16 @@ public class RacersController : ControllerBase
         _dbService = dbService;
     }
     [HttpGet("{id}/participations")]
-    public async Task<IActionResult> GetRacers()
+    public async Task<IActionResult> GetRacers(int id)
     {
         try
         {
-
+            var racer = await _dbService.GetRacers(id);
+            return Ok(racer);
         }
-        catch (Exception e)
+        catch (NotFoundException e)
         {
-            
+            return NotFound();
         }
-        return Ok();
     }
 }

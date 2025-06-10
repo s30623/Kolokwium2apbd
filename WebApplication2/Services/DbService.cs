@@ -38,4 +38,37 @@ public class DbService : IDbService
          }
             return result;
     }
+
+    public async Task AddRacer(AddRacerRequestDTO addRacerRequestDTO)
+    {
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            var raceExist = await _context.Races.FirstOrDefaultAsync(r => r.Name == addRacerRequestDTO.RaceName);
+            if (raceExist is null)
+            {
+                throw new NotFoundException("Wyscig z ta nazwa chyab nie istnieje");
+            }
+
+            var trackExist = await _context.Tracks.FirstOrDefaultAsync(t => t.Name == addRacerRequestDTO.TrackName);
+            if (trackExist is null)
+            {
+                throw new NotFoundException("Tor o podanzej nazwue nie isntieje");
+            }
+
+            foreach (ParticipationRequestDTO racer in addRacerRequestDTO.Participations)
+            {
+                if (await _context.Racers.FirstOrDefaultAsync(r => r.RacerId == racer.RacerId) is null)
+                {
+                    throw new NotFoundException($"Racer o id: {racer.RacerId} nie istnieje");
+                }
+            }
+
+        }
+        catch (Exception e)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+    }
 }

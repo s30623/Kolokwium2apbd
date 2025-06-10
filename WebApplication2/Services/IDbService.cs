@@ -6,4 +6,5 @@ namespace WebApplication2.Services;
 public interface IDbService
 {
     public Task<RacerResultDTO> GetRacers(int id);
+    public Task AddRacer(AddRacerRequestDTO addRacerRequestDTO);
 }
