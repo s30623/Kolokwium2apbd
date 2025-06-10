@@ -108,6 +108,31 @@ namespace WebApplication2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Race",
+                columns: new[] { "RaceId", "Date", "Location", "Name" },
+                values: new object[] { 1, new DateTime(1999, 7, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Monaco", "Race 1" });
+
+            migrationBuilder.InsertData(
+                table: "Racer",
+                columns: new[] { "RacerId", "FirstName", "LastName" },
+                values: new object[] { 1, "Tomek", "Kuro" });
+
+            migrationBuilder.InsertData(
+                table: "Track",
+                columns: new[] { "TrackId", "LenghInKm", "Name" },
+                values: new object[] { 1, 15.699999999999999, "Grand Track" });
+
+            migrationBuilder.InsertData(
+                table: "Track_Race",
+                columns: new[] { "TrackRaceId", "BestTimeInSeconds", "Laps", "RaceId", "TrackId" },
+                values: new object[] { 1, null, 15, 0, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Race_Participation",
+                columns: new[] { "RacerId", "TrackRaceId", "FinishTimeInSeconds", "Position" },
+                values: new object[] { 1, 1, 54600, 1 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Race_Participation_RacerId",
                 table: "Race_Participation",

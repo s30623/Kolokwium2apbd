@@ -46,6 +46,15 @@ namespace WebApplication2.Migrations
                     b.HasKey("RaceId");
 
                     b.ToTable("Race");
+
+                    b.HasData(
+                        new
+                        {
+                            RaceId = 1,
+                            Date = new DateTime(1999, 7, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Location = "Monaco",
+                            Name = "Race 1"
+                        });
                 });
 
             modelBuilder.Entity("WebApplication2.Models.RaceParticipation", b =>
@@ -67,6 +76,15 @@ namespace WebApplication2.Migrations
                     b.HasIndex("RacerId");
 
                     b.ToTable("Race_Participation");
+
+                    b.HasData(
+                        new
+                        {
+                            TrackRaceId = 1,
+                            RacerId = 1,
+                            FinishTimeInSeconds = 54600,
+                            Position = 1
+                        });
                 });
 
             modelBuilder.Entity("WebApplication2.Models.Racer", b =>
@@ -90,6 +108,14 @@ namespace WebApplication2.Migrations
                     b.HasKey("RacerId");
 
                     b.ToTable("Racer");
+
+                    b.HasData(
+                        new
+                        {
+                            RacerId = 1,
+                            FirstName = "Tomek",
+                            LastName = "Kuro"
+                        });
                 });
 
             modelBuilder.Entity("WebApplication2.Models.Track", b =>
@@ -112,6 +138,14 @@ namespace WebApplication2.Migrations
                     b.HasKey("TrackId");
 
                     b.ToTable("Track");
+
+                    b.HasData(
+                        new
+                        {
+                            TrackId = 1,
+                            LenghInKm = 15.699999999999999,
+                            Name = "Grand Track"
+                        });
                 });
 
             modelBuilder.Entity("WebApplication2.Models.TrackRace", b =>
@@ -141,6 +175,15 @@ namespace WebApplication2.Migrations
                     b.HasIndex("TrackId");
 
                     b.ToTable("Track_Race");
+
+                    b.HasData(
+                        new
+                        {
+                            TrackRaceId = 1,
+                            Laps = 15,
+                            RaceId = 0,
+                            TrackId = 1
+                        });
                 });
 
             modelBuilder.Entity("WebApplication2.Models.RaceParticipation", b =>
