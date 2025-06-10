@@ -62,7 +62,9 @@ public class DbService : IDbService
                 {
                     throw new NotFoundException($"Racer o id: {racer.RacerId} nie istnieje");
                 }
+                // _context.Racers.Add(racer);
             }
+            
 
         }
         catch (Exception e)
